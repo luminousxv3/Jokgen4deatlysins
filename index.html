@@ -7,7 +7,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;600&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;600;800&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
     
     <style>
         /* --- VARIABEL & RESET --- */
@@ -52,10 +52,168 @@
             user-select: none; 
         }
 
-        /* Izinkan seleksi hanya pada input */
         input, select {
             user-select: text;
         }
+
+        /* =========================================
+           NEW: OVERLAY INFORMATION STYLES
+           ========================================= */
+        #infoOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 10000; /* Paling atas */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            animation: fadeInOverlay 0.5s ease;
+        }
+
+        .overlay-box {
+            background: rgba(25, 25, 25, 0.9);
+            border: 2px solid var(--primary-red);
+            box-shadow: 0 0 50px rgba(255, 0, 0, 0.4);
+            border-radius: 15px;
+            padding: 30px 20px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            max-height: 90vh;
+            overflow-y: auto; /* Scroll jika teks panjang */
+            position: relative;
+        }
+
+        .overlay-box::-webkit-scrollbar {
+            width: 6px;
+        }
+        .overlay-box::-webkit-scrollbar-thumb {
+            background: var(--primary-red);
+            border-radius: 3px;
+        }
+
+        /* --- UPDATE: FONT INFORMATION JADI NORMAL --- */
+        .overlay-title {
+            font-family: 'Inter', sans-serif; /* Diubah dari UnifrakturMaguntia menjadi Normal */
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 1.8rem;
+            color: var(--primary-red);
+            text-shadow: 0 0 15px var(--primary-red);
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        /* --- UPDATE: STYLE UNTUK GAMBAR BARU --- */
+        .overlay-group-img {
+            width: 100%;
+            max-width: 320px;
+            height: auto;
+            border-radius: 10px;
+            border: 3px solid var(--gold);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+            margin-bottom: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            object-fit: cover;
+        }
+
+        .overlay-rules {
+            color: #fff;
+            font-weight: bold;
+            margin-bottom: 25px;
+            font-size: 1rem;
+            line-height: 1.5;
+            background: rgba(255, 0, 0, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px dashed var(--primary-red);
+        }
+
+        .thanks-title {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .names-list {
+            text-align: left;
+            list-style: none;
+            margin-bottom: 25px;
+            font-size: 0.9rem;
+            color: #ccc;
+            padding-left: 10px;
+        }
+
+        .names-list li {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .names-list li::before {
+            content: '•';
+            color: var(--primary-red);
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .names-list span {
+            color: var(--gold);
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .overlay-ending {
+            font-style: italic;
+            color: #888;
+            font-size: 0.85rem;
+            margin-bottom: 25px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 15px;
+        }
+
+        .btn-enter {
+            background: linear-gradient(135deg, var(--dark-red), #800000);
+            color: #fff;
+            border: 1px solid var(--primary-red);
+            padding: 12px 40px;
+            font-size: 1.1rem;
+            font-family: 'Cinzel', serif;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s var(--ease-elastic);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-enter:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.6);
+            background: var(--primary-red);
+        }
+
+        @keyframes fadeInOverlay {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* =========================================
+           END OVERLAY STYLES
+           ========================================= */
 
         /* --- BACKGROUND EFFECTS --- */
         .rune-circle-bg {
@@ -109,14 +267,13 @@
             gap: 20px;
         }
 
-        /* --- HEADER SECTION (UPDATED) --- */
+        /* --- HEADER SECTION --- */
         .header {
             text-align: center;
             padding: 10px 0;
             margin-bottom: 10px;
         }
         
-        /* Judul Atas (Normal) */
         .title-normal {
             font-family: 'Inter', sans-serif;
             font-size: 1.1rem;
@@ -127,7 +284,6 @@
             font-weight: 400;
         }
 
-        /* Judul Bawah (Gothic) */
         .title-gothic {
             font-family: 'UnifrakturMaguntia', cursive;
             font-size: 2.8rem;
@@ -470,6 +626,38 @@
 </head>
 <body oncontextmenu="return false;">
 
+    <!-- BACKGROUND OVERLAY -->
+    <div id="infoOverlay">
+        <div class="overlay-box">
+            <h1 class="overlay-title">INFORMATION</h1>
+            
+            <!-- IMAGE BARU SESUAI REQUEST -->
+            <img src="https://z-cdn-media.chatglm.cn/files/c37a947e-6ee7-42f6-8865-6858fbc9f446.jpg?auth_key=1870185203-a80b652feec04fbfa167129adf3e4e09-0-4c3c7d9babf69a445f4627bd429188f7" alt="3 Sekawan" class="overlay-group-img">
+            
+            <div class="overlay-rules">
+                TIDAK MENERIMA ORDERAN TANPA BUKTI TRANSFER, DAN TIDAK MENERIMA CASHBON.
+            </div>
+
+            <h3 class="thanks-title">BIG THANKS TO :</h3>
+            <ul class="names-list">
+                <li><span>VENDORA</span> (DEBT COLLECTOR PSHT)</li>
+                <li><span>ANEH</span> (THE RAJA IBELIS)</li>
+                <li><span>HEYA</span> (CANTIK PACAR SUKI)</li>
+                <li><span>SUKI</span> (THE KINGS OF KIKIR / MAFIA BAWAH TANAH KELAS ATAS)</li>
+                <li><span>LENN</span> (MEDAN BESI KONTOL)</li>
+                <li><span>UJAY</span> (GANTENG)</li>
+                <li><span>AKBAR JAWA</span> (JURAGAN TAMBAK TAI)</li>
+                <li><span>VEICELENG</span> (KACUNG KIREK)</li>
+            </ul>
+
+            <div class="overlay-ending">
+                Terimakasih telah men support kami, semoga hidup mu sengsara.
+            </div>
+
+            <button class="btn-enter" id="closeOverlayBtn">MASUK STORE</button>
+        </div>
+    </div>
+
     <!-- Background Rune Animation -->
     <div class="rune-circle-bg"></div>
 
@@ -480,13 +668,10 @@
 
     <div class="main-wrapper">
         
-        <!-- HEADER (Updated Title) -->
+        <!-- HEADER -->
         <header class="header animate-entry" style="animation-delay: 0.1s;">
-            <!-- Baris 1: Text Normal -->
             <div class="title-normal">HI SELAMAT DATANG DI</div>
-            <!-- Baris 2: Text Gothic -->
             <div class="title-gothic">4 DEADLY SINS</div>
-            
             <div class="sub-header">Joki Gendong Service</div>
         </header>
 
@@ -609,6 +794,23 @@
     </div>
 
     <script>
+        // --- OVERLAY LOGIC ---
+        window.addEventListener('load', function() {
+            const overlay = document.getElementById('infoOverlay');
+            const btnClose = document.getElementById('closeOverlayBtn');
+
+            btnClose.addEventListener('click', function() {
+                // Animasi fade out
+                overlay.style.transition = 'opacity 0.5s ease';
+                overlay.style.opacity = '0';
+                
+                // Sembunyikan elemen setelah animasi selesai
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                }, 500);
+            });
+        });
+
         // --- KALKULATOR LOGIC ---
         const modeSelect = document.getElementById('modeSelect');
         const matchCount = document.getElementById('matchCount');
@@ -624,26 +826,22 @@
         modeSelect.addEventListener('change', calculateTotal);
         matchCount.addEventListener('input', calculateTotal);
 
-        // --- WHATSAPP LOGIC (UPDATED) ---
+        // --- WHATSAPP LOGIC ---
         function sendToWA(adminName, adminNumber) {
-            // Ambil data dari Form Format Order
             const nama = document.getElementById('inputName').value;
             const noWa = document.getElementById('inputWA').value;
             const order = document.getElementById('inputOrder').value;
             const matchDetail = document.getElementById('inputMatch').value;
 
-            // Ambil data dari Kalkulator
             const total = totalPriceEl.innerText;
             const modeText = modeSelect.options[modeSelect.selectedIndex].text.split('(')[0].trim();
             const qty = matchCount.value;
 
-            // Validasi sederhana
             if(!nama || !order) {
                 alert("Mohon lengkapi Nama dan Order (Username) sebelum mengirim ke Admin!");
                 return;
             }
 
-            // Gabungkan semua ke dalam pesan WA
             const message = `Halo Admin ${adminName}, saya sudah transfer via QRIS L STORE.
 
 ───────────────
@@ -690,18 +888,10 @@ Mohon diproses ya min, bukti TF saya lampirkan dibawah ini.`;
         // Mencegah Inspect Element (Tambahan Keamanan Sederhana)
         document.addEventListener('contextmenu', event => event.preventDefault());
         document.onkeydown = function(e) {
-            if(e.keyCode == 123) { // F12
-                return false;
-            }
-            if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { // Ctrl+Shift+I
-                return false;
-            }
-            if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) { // Ctrl+Shift+C
-                return false;
-            }
-            if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { // Ctrl+U
-                return false;
-            }
+            if(e.keyCode == 123) { return false; }
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { return false; }
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) { return false; }
+            if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { return false; }
         }
     </script>
 </body>
